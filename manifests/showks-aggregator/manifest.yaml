@@ -1,0 +1,71 @@
+---
+# Source: showks-aggregator/templates/rolebinding.yml
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: showks-aggregator-access
+  namespace: showks
+rules:
+- apiGroups: ["","apps"]
+  resources: ["services","deployments"]
+  verbs: ["get", "watch", "list"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: RoleBinding
+metadata:
+  name: showks-aggregator-access-binding
+  namespace: showks
+subjects:
+  - kind: ServiceAccount
+    name: default
+roleRef:
+  kind: Role
+  name: showks-aggregator-access
+  apiGroup: rbac.authorization.k8s.io
+
+---
+# Source: showks-aggregator/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: showks-aggregator
+  labels:
+    app: showks-aggregator
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+      name: app-port
+  selector:
+    app: showks-aggregator
+
+---
+# Source: showks-aggregator/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: showks-aggregator
+  labels:
+    app: showks-aggregator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: showks-aggregator
+  template:
+    metadata:
+      labels:
+        app: showks-aggregator
+    spec:
+      containers:
+        - name: showks-aggregator
+          image: containerdaysjp/showks-aggregator:stg-400405ad3fa6a04a2ec7ab2930b73577ceb561f9
+          ports:
+            - name: app-port
+              containerPort: 8080
+              protocol: TCP
+
