@@ -36,8 +36,8 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - port: 8080
-      targetPort: 8080
+    - port: 8081
+      targetPort: 8081
       protocol: TCP
       name: app-port
   selector:
@@ -63,9 +63,9 @@ spec:
     spec:
       containers:
         - name: showks-aggregator
-          image: containerdaysjp/showks-aggregator:stg-400405ad3fa6a04a2ec7ab2930b73577ceb561f9
+          image: containerdaysjp/showks-aggregator:stg-910dbeb483535e756059bf3c7397ceefe3bbe542
           ports:
             - name: app-port
-              containerPort: 8080
+              containerPort: 8081
               protocol: TCP
 
