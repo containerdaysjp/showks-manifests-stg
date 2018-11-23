@@ -65,9 +65,35 @@ spec:
     spec:
       containers:
         - name: showks-aggregator
-          image: containerdaysjp/showks-aggregator:stg-089d14132b3159eeb5d58dfddd33c11a5009d661
+          image: containerdaysjp/showks-aggregator:stg-668bde34e11ef96406612f72ec0073e70432b316
           ports:
             - name: app-port
               containerPort: 8081
               protocol: TCP
+
+---
+# Source: showks-aggregator/templates/ingress.yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: showks-aggregator
+  namespace: showks
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: aggregator.stg.showks.containerdays.jp
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: showks-aggregator
+          servicePort: 8081
+  - host: aggregator.prod.showks.containerdays.jp
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: showks-aggregator
+          servicePort: 8081
 
