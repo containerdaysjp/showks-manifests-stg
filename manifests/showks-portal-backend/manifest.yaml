@@ -1,0 +1,73 @@
+---
+# Source: showks-portal-backend/templates/rolebinding.yml
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: showks-portal-backend-access
+  namespace: showks
+rules:
+- apiGroups: ["","apps"]
+  resources: ["services","deployments"]
+  verbs: ["get", "watch", "list"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: RoleBinding
+metadata:
+  name: showks-portal-backend-access-binding
+  namespace: showks
+subjects:
+  - kind: ServiceAccount
+    name: default
+roleRef:
+  kind: Role
+  name: showks-portal-backend-access
+  apiGroup: rbac.authorization.k8s.io
+
+---
+# Source: showks-portal-backend/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: showks-portal-backend
+  namespace: showks
+  labels:
+    app: showks-portal-backend
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8081
+      targetPort: 8081
+      protocol: TCP
+      name: app-port
+  selector:
+    app: showks-portal-backend
+
+---
+# Source: showks-portal-backend/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: showks-portal-backend
+  namespace: showks
+  labels:
+    app: showks-portal-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: showks-portal-backend
+  template:
+    metadata:
+      labels:
+        app: showks-portal-backend
+    spec:
+      containers:
+        - name: showks-portal-backend
+          image: containerdaysjp/showks-portal-backend:stg-67e5bf3e86747b30d10ccc70e90769493be3e099
+          ports:
+            - name: app-port
+              containerPort: 8081
+              protocol: TCP
+
