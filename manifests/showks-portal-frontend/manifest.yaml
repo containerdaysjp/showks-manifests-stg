@@ -38,7 +38,7 @@ spec:
     spec:
       containers:
         - name: showks-portal-frontend
-          image: containerdaysjp/showks-portal-frontend:stg-79ca61ccc73ad9aa182cb76cf3697c893218b3f4
+          image: containerdaysjp/showks-portal-frontend:stg-bc0bb965d2abdce1ab79900972d90ea83d85b4b1
           ports:
             - name: app-port
               containerPort: 3000
@@ -56,6 +56,13 @@ metadata:
 spec:
   rules:
   - host: portal.stg.showks.containerdays.jp
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: showks-portal-frontend
+          servicePort: 3000
+  - host: portal.prod.showks.containerdays.jp
     http:
       paths:
       - path: /
