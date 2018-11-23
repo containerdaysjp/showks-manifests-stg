@@ -30,7 +30,7 @@ roleRef:
 apiVersion: v1
 kind: Service
 metadata:
-  name: showks-aggregator
+  name: showks-aggregator-temp
   namespace: showks
   labels:
     app: showks-aggregator
@@ -49,7 +49,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: showks-aggregator
+  name: showks-aggregator-temp
   namespace: showks
   labels:
     app: showks-aggregator
@@ -65,7 +65,7 @@ spec:
     spec:
       containers:
         - name: showks-aggregator
-          image: containerdaysjp/showks-aggregator:stg-518b0f20b80b3c98301fc95abbd55b41cba78c2f
+          image: containerdaysjp/showks-aggregator:stg-8750d6ad509553d7a56fa58570fe65c2efd7cd2b
           ports:
             - name: app-port
               containerPort: 8081
