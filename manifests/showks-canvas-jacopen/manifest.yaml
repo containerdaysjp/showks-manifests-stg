@@ -1,0 +1,47 @@
+---
+# Source: showks-canvas/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: showks-canvas-jacopen-temp
+  namespace: showks
+  labels:
+    app: showks-canvas
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+      name: app-port
+  selector:
+    app: showks-canvas
+
+
+---
+# Source: showks-canvas/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: showks-canvas-jacopen-temp
+  namespace: showks
+  labels:
+    app: showks-canvas
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: showks-canvas
+  template:
+    metadata:
+      labels:
+        app: showks-canvas
+    spec:
+      containers:
+        - name: showks-canvas-jacopen
+          image: containerdaysjp/showks-canvas-jacopen:stg-4d225bad54fc731b961c0de1a84170d8ed17b0da
+          ports:
+            - name: app-port
+              containerPort: 8080
+              protocol: TCP
+
