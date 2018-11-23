@@ -65,7 +65,7 @@ spec:
     spec:
       containers:
         - name: showks-aggregator
-          image: containerdaysjp/showks-aggregator:stg-8750d6ad509553d7a56fa58570fe65c2efd7cd2b
+          image: containerdaysjp/showks-aggregator:stg-9b58d4671c7d5ff18988a70df89538a995d619e3
           ports:
             - name: app-port
               containerPort: 8081
@@ -76,7 +76,7 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: showks-aggregator
+  name: showks-aggregator-temp
   namespace: showks
   annotations:
     kubernetes.io/ingress.class: "nginx"
