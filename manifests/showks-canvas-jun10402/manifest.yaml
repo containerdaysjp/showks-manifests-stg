@@ -41,7 +41,7 @@ spec:
     spec:
       containers:
         - name: showks-canvas-jun10402-temp
-          image: containerdaysjp/showks-canvas-jun10402:stg-141c5dccb0cb702450db85984d861c1f1898f8bd
+          image: containerdaysjp/showks-canvas-jun10402:stg-fe061602388e44ae5814b0c39b4bf317ac632ff1
           ports:
             - name: app-port
               containerPort: 8080
