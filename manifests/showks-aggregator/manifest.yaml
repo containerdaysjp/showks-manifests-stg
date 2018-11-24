@@ -65,7 +65,7 @@ spec:
     spec:
       containers:
         - name: showks-aggregator
-          image: containerdaysjp/showks-aggregator:stg-294ef79aa16ad7868dad2aa665c02893324780b6
+          image: containerdaysjp/showks-aggregator:stg-f4caf4bd28b812fe2cb996c0483e9db7239d1917
           ports:
             - name: app-port
               containerPort: 8081
