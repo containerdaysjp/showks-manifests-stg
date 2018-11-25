@@ -38,7 +38,7 @@ spec:
     spec:
       containers:
         - name: showks-portal-frontend
-          image: containerdaysjp/showks-portal-frontend:stg-87239678db9708af24df29e8bce6649753358aba
+          image: containerdaysjp/showks-portal-frontend:stg-4de9b8188f04dcadc9de793aac59ed5663f520f2
           ports:
             - name: app-port
               containerPort: 3000
@@ -55,7 +55,14 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
 spec:
   rules:
-  - host: portal
+  - host: portal.stg.showks.containerdays.jp
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: showks-portal-frontend-temp
+          servicePort: 3000
+  - host: portal.prod.showks.containerdays.jp
     http:
       paths:
       - path: /
