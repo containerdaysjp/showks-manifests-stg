@@ -65,7 +65,7 @@ spec:
     spec:
       containers:
         - name: showks-aggregator
-          image: gcr.io/ipc-containerdays/showks-aggregator:stg-5a03ac983d9a96810e325d069757af583565e943
+          image: gcr.io/ipc-containerdays/showks-aggregator:stg-74632f2ed505dd5206e7405a2551d8cb5b260178
           ports:
             - name: app-port
               containerPort: 8081
@@ -83,13 +83,6 @@ metadata:
 spec:
   rules:
   - host: aggregator.stg.showks.containerdays.jp
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: showks-aggregator-temp
-          servicePort: 8081
-  - host: aggregator.prod.showks.containerdays.jp
     http:
       paths:
       - path: /
