@@ -41,7 +41,7 @@ spec:
     spec:
       containers:
         - name: showks-canvas-demoaccount-jacopen-001-temp
-          image: gcr.io/ipc-containerdays/showks-canvas-demoaccount-jacopen-001:stg-25c0f5679754c97c7e6d9a70f2019fab3871f533
+          image: gcr.io/ipc-containerdays/showks-canvas-demoaccount-jacopen-001:stg-4c0067aa0c3da3b38187e697dc39de4199a3b7c4
           ports:
             - name: app-port
               containerPort: 8080
