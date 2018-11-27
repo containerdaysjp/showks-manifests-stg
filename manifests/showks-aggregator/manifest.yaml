@@ -70,23 +70,3 @@ spec:
             - name: app-port
               containerPort: 8081
               protocol: TCP
-
----
-# Source: showks-aggregator/templates/ingress.yaml
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: showks-aggregator-temp
-  namespace: showks
-  annotations:
-    kubernetes.io/ingress.class: "nginx"
-spec:
-  rules:
-  - host: aggregator.stg.showks.containerdays.jp
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: showks-aggregator-temp
-          servicePort: 8081
-

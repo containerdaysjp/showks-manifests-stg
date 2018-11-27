@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: showks-portal-frontend-temp
+  namespace: showks
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: portal.stg.showks.containerdays.jp
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: showks-portal-frontend-temp
+          servicePort: 3000
