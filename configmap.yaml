@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  domain: .stg.showks.containerdays.jp
+kind: ConfigMap
+metadata:
+  name: showks-config
+  namespace: showks
