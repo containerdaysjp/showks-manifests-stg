@@ -1,0 +1,70 @@
+---
+# Source: showks-canvas/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: showks-canvas-demoaccount-jyoshise-2-temp
+  namespace: showks
+  labels:
+    app: showks-canvas-demoaccount-jyoshise-2-temp
+    class: showks-canvas
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+      name: app-port
+  selector:
+    app: showks-canvas-demoaccount-jyoshise-2-temp
+
+---
+# Source: showks-canvas/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: showks-canvas-demoaccount-jyoshise-2-temp
+  namespace: showks
+  labels:
+    app: showks-canvas-demoaccount-jyoshise-2-temp
+    class: showks-canvas
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: showks-canvas-demoaccount-jyoshise-2-temp
+  template:
+    metadata:
+      labels:
+        app: showks-canvas-demoaccount-jyoshise-2-temp
+        class: showks-canvas
+    spec:
+      containers:
+        - name: showks-canvas-demoaccount-jyoshise-2-temp
+          image: gcr.io/ipc-containerdays/showks-canvas-demoaccount-jyoshise-2:stg-a6b120fc691bbd6d2d565319dbe8abb1c8ed92ae
+          ports:
+            - name: app-port
+              containerPort: 8080
+              protocol: TCP
+
+---
+# Source: showks-canvas/templates/ingress.yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: showks-canvas-demoaccount-jyoshise-2-temp
+  namespace: showks
+  labels:
+    class: showks-canvas
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: showks-canvas-demoaccount-jyoshise-2.stg.showks.containerdays.jp
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: showks-canvas-demoaccount-jyoshise-2-temp
+          servicePort: 8080
+
