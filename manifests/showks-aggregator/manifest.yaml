@@ -65,8 +65,12 @@ spec:
     spec:
       containers:
         - name: showks-aggregator
-          image: gcr.io/ipc-containerdays/showks-aggregator:stg-74632f2ed505dd5206e7405a2551d8cb5b260178
+          image: gcr.io/ipc-containerdays/showks-aggregator:stg-d06b9245942b7d2ba2933f5b51359d66fb27feac
+          env:
+            - name: ALLOW_HOST
+              value: http://portal.stg.showks.containerdays.jp
           ports:
             - name: app-port
               containerPort: 8081
               protocol: TCP
+
