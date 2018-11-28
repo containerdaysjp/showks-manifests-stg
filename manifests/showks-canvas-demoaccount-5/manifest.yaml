@@ -3,10 +3,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: showks-canvas-demoaccount-2-temp
+  name: showks-canvas-demoaccount-5
   namespace: showks
   labels:
-    app: showks-canvas-demoaccount-2-temp
+    app: showks-canvas-demoaccount-5
     class: showks-canvas
 spec:
   type: ClusterIP
@@ -16,32 +16,32 @@ spec:
       protocol: TCP
       name: app-port
   selector:
-    app: showks-canvas-demoaccount-2-temp
+    app: showks-canvas-demoaccount-5
 
 ---
 # Source: showks-canvas/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: showks-canvas-demoaccount-2-temp
+  name: showks-canvas-demoaccount-5
   namespace: showks
   labels:
-    app: showks-canvas-demoaccount-2-temp
+    app: showks-canvas-demoaccount-5
     class: showks-canvas
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: showks-canvas-demoaccount-2-temp
+      app: showks-canvas-demoaccount-5
   template:
     metadata:
       labels:
-        app: showks-canvas-demoaccount-2-temp
+        app: showks-canvas-demoaccount-5
         class: showks-canvas
     spec:
       containers:
-        - name: showks-canvas-demoaccount-2-temp
-          image: gcr.io/ipc-containerdays/showks-canvas-demoaccount-2:stg-961d03780a842eafcb339d7f08ef3edc9c75d8ef
+        - name: showks-canvas-demoaccount-5
+          image: gcr.io/ipc-containerdays/showks-canvas-demoaccount-5:prod-a8cf7adec99eb76ae4d5e350db9752f95e6aa55a
           ports:
             - name: app-port
               containerPort: 8080
@@ -52,7 +52,7 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: showks-canvas-demoaccount-2-temp
+  name: showks-canvas-demoaccount-5
   namespace: showks
   labels:
     class: showks-canvas
@@ -60,11 +60,11 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
 spec:
   rules:
-  - host: showks-canvas-demoaccount-2.stg.showks.containerdays.jp
+  - host: showks-canvas-demoaccount-5.prod.showks.containerdays.jp
     http:
       paths:
       - path: /
         backend:
-          serviceName: showks-canvas-demoaccount-2-temp
+          serviceName: showks-canvas-demoaccount-5
           servicePort: 8080
 
