@@ -33,7 +33,7 @@ metadata:
   name: showks-aggregator-temp
   namespace: showks
   labels:
-    app: showks-aggregator
+    app: showks-aggregator-temp
 spec:
   type: ClusterIP
   ports:
@@ -42,7 +42,7 @@ spec:
       protocol: TCP
       name: app-port
   selector:
-    app: showks-aggregator
+    app: showks-aggregator-temp
 
 ---
 # Source: showks-aggregator/templates/deployment.yaml
@@ -52,20 +52,20 @@ metadata:
   name: showks-aggregator-temp
   namespace: showks
   labels:
-    app: showks-aggregator
+    app: showks-aggregator-temp
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: showks-aggregator
+      app: showks-aggregator-temp
   template:
     metadata:
       labels:
-        app: showks-aggregator
+        app: showks-aggregator-temp
     spec:
       containers:
-        - name: showks-aggregator
-          image: gcr.io/ipc-containerdays/showks-aggregator:stg-ca274c76a6dcc9e4a44a0d648d647411b9a221d8
+        - name: showks-aggregator-temp
+          image: gcr.io/ipc-containerdays/showks-aggregator:stg-5b7b66703076f430d3a7a7ca6e30840e685eac9a
           env:
             - name: DOMAIN
               valueFrom:
