@@ -6,10 +6,6 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: "nginx"
 spec:
-  tls:
-    - hosts:
-      - *.stg.showks.containerdays.jp
-      secretName: tls-certificate
   rules:
   - host: portal.stg.showks.containerdays.jp
     http:
