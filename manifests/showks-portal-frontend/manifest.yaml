@@ -6,7 +6,7 @@ metadata:
   name: showks-portal-frontend-temp
   namespace: showks
   labels:
-    app: showks-portal-frontend
+    app: showks-portal-frontend-temp
 spec:
   type: ClusterIP
   ports:
@@ -15,7 +15,7 @@ spec:
       protocol: TCP
       name: app-port
   selector:
-    app: showks-portal-frontend
+    app: showks-portal-frontend-temp
 
 ---
 # Source: showks-portal-frontend/templates/deployment.yaml
@@ -25,20 +25,20 @@ metadata:
   name: showks-portal-frontend-temp
   namespace: showks
   labels:
-    app: showks-portal-frontend
+    app: showks-portal-frontend-temp
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: showks-portal-frontend
+      app: showks-portal-frontend-temp
   template:
     metadata:
       labels:
-        app: showks-portal-frontend
+        app: showks-portal-frontend-temp
     spec:
       containers:
-        - name: showks-portal-frontend
-          image: gcr.io/ipc-containerdays/showks-portal-frontend:stg-ff75ff0c578f5f9de7c9cfb6e268106ad2ced0fa
+        - name: showks-portal-frontend-temp
+          image: gcr.io/ipc-containerdays/showks-portal-frontend:stg-ed39c24b1c9c13554c418eef74e8846506208f6d
           env:
             - name: DOMAIN
               valueFrom:
