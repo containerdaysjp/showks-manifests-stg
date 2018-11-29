@@ -6,7 +6,8 @@ metadata:
   name: showks-canvas-jacopen-temp
   namespace: showks
   labels:
-    app: showks-canvas
+    app: showks-canvas-jacopen-temp
+    class: showks-canvas
 spec:
   type: ClusterIP
   ports:
@@ -15,8 +16,7 @@ spec:
       protocol: TCP
       name: app-port
   selector:
-    app: showks-canvas
-
+    app: showks-canvas-jacopen-temp
 
 ---
 # Source: showks-canvas/templates/deployment.yaml
@@ -26,22 +26,45 @@ metadata:
   name: showks-canvas-jacopen-temp
   namespace: showks
   labels:
-    app: showks-canvas
+    app: showks-canvas-jacopen-temp
+    class: showks-canvas
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: showks-canvas
+      app: showks-canvas-jacopen-temp
   template:
     metadata:
       labels:
-        app: showks-canvas
+        app: showks-canvas-jacopen-temp
+        class: showks-canvas
     spec:
       containers:
-        - name: showks-canvas-jacopen
-          image: containerdaysjp/showks-canvas-jacopen:stg-d6b850a417a891373cdc8977fe62900ee0a7dc6d
+        - name: showks-canvas-jacopen-temp
+          image: gcr.io/ipc-containerdays/showks-canvas-jacopen:stg-8458a6516b5b2b6d6c00a4abfc1d86ab0782dad0
           ports:
             - name: app-port
               containerPort: 8080
               protocol: TCP
+
+---
+# Source: showks-canvas/templates/ingress.yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: showks-canvas-jacopen-temp
+  namespace: showks
+  labels:
+    class: showks-canvas
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: showks-canvas-jacopen.stg.showks.containerdays.jp
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: showks-canvas-jacopen-temp
+          servicePort: 8080
 
