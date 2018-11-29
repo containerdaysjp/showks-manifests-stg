@@ -8,7 +8,7 @@ metadata:
 spec:
   tls:
     - hosts:
-      - portal.stg.showks.containerdays.jp
+      - *.stg.showks.containerdays.jp
       secretName: tls-certificate
   rules:
   - host: portal.stg.showks.containerdays.jp
