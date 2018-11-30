@@ -1,0 +1,70 @@
+---
+# Source: showks-canvas/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: showks-canvas-pivotal-workshop-temp
+  namespace: showks
+  labels:
+    app: showks-canvas-pivotal-workshop-temp
+    class: showks-canvas
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+      name: app-port
+  selector:
+    app: showks-canvas-pivotal-workshop-temp
+
+---
+# Source: showks-canvas/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: showks-canvas-pivotal-workshop-temp
+  namespace: showks
+  labels:
+    app: showks-canvas-pivotal-workshop-temp
+    class: showks-canvas
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: showks-canvas-pivotal-workshop-temp
+  template:
+    metadata:
+      labels:
+        app: showks-canvas-pivotal-workshop-temp
+        class: showks-canvas
+    spec:
+      containers:
+        - name: showks-canvas-pivotal-workshop-temp
+          image: gcr.io/ipc-containerdays/showks-canvas-pivotal-workshop:stg-3ac09f1abd2e894e19f5eb5b7db256fa66c2d17d
+          ports:
+            - name: app-port
+              containerPort: 8080
+              protocol: TCP
+
+---
+# Source: showks-canvas/templates/ingress.yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: showks-canvas-pivotal-workshop-temp
+  namespace: showks
+  labels:
+    class: showks-canvas
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: showks-canvas-pivotal-workshop.stg.showks.containerdays.jp
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: showks-canvas-pivotal-workshop-temp
+          servicePort: 8080
+
