@@ -41,7 +41,7 @@ spec:
     spec:
       containers:
         - name: showks-canvas-tsukaman-temp
-          image: gcr.io/ipc-containerdays/showks-canvas-tsukaman:stg-763ffc847374e7c691e2eb650363bb5f2294bf30
+          image: gcr.io/ipc-containerdays/showks-canvas-tsukaman:stg-d2cbd8f980db47eff5ac71e83fcd2d3a1a7e1d9a
           ports:
             - name: app-port
               containerPort: 8080
