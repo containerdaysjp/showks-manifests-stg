@@ -65,7 +65,7 @@ spec:
     spec:
       containers:
         - name: showks-aggregator-temp
-          image: gcr.io/ipc-containerdays/showks-aggregator:stg-52881530c1c5455cd7f81219f6d5795351a37b2f
+          image: gcr.io/ipc-containerdays/showks-aggregator:stg-1e8e4550ee51bdcef89dc2c9f55512ddd76adf99
           env:
             - name: DOMAIN
               valueFrom:
