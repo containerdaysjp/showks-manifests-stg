@@ -41,7 +41,7 @@ spec:
     spec:
       containers:
         - name: showks-canvas-pivotal-workshop-temp
-          image: gcr.io/ipc-containerdays/showks-canvas-pivotal-workshop:stg-c062e320ec33946a626b1393a0e2936887b10d94
+          image: gcr.io/ipc-containerdays/showks-canvas-pivotal-workshop:stg-48b1d6475f4cf82a13b50b61525270b94583cc19
           ports:
             - name: app-port
               containerPort: 8080
