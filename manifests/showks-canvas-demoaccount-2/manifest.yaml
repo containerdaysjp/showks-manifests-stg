@@ -41,7 +41,7 @@ spec:
     spec:
       containers:
         - name: showks-canvas-demoaccount-2-temp
-          image: gcr.io/ipc-containerdays/showks-canvas-demoaccount-2:stg-cc52507e1ce160158cd4b8436432a0c8bc29cab4
+          image: gcr.io/ipc-containerdays/showks-canvas-demoaccount-2:stg-b46853ecb9e811719c705586982bb2c481f759ac
           ports:
             - name: app-port
               containerPort: 8080
