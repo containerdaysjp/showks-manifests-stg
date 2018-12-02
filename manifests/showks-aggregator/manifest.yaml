@@ -65,7 +65,7 @@ spec:
     spec:
       containers:
         - name: showks-aggregator-temp
-          image: gcr.io/ipc-containerdays/showks-aggregator:stg-f6216d7f261f2215bb7e8de9844be9fa20167b76
+          image: gcr.io/ipc-containerdays/showks-aggregator:stg-b2261ccde58a01a93c1d536b705f8d451146504d
           env:
             - name: DOMAIN
               valueFrom:
@@ -73,7 +73,7 @@ spec:
                   name: showks-config
                   key: domain
             - name: ALLOW_HOST
-              value: http://portal$(DOMAIN)
+              value: https://portal$(DOMAIN)
           ports:
             - name: app-port
               containerPort: 8081
