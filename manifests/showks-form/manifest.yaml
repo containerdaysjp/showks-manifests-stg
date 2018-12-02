@@ -1,0 +1,211 @@
+---
+# Source: showks-form/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysqld-config
+data:
+  mysqld.cnf: |
+    [mysqld]
+    pid-file	= /var/run/mysqld/mysqld.pid
+    socket		= /var/run/mysqld/mysqld.sock
+    datadir		= /var/lib/mysql
+    #log-error	= /var/log/mysql/error.log
+    # By default we only accept connections from localhost
+    #bind-address	= 127.0.0.1
+    # Disabling symbolic-links is recommended to prevent assorted security risks
+    symbolic-links=0
+    character-set-server=utf8mb4
+
+    [client]
+    default-character-set=utf8mb4
+
+---
+# Source: showks-form/templates/pvc.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pv-claim
+  labels:
+    app: showks-form
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+
+---
+# Source: showks-form/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: showks-form-temp
+  namespace: showks
+  labels:
+    app: showks-form-temp
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3000
+      targetPort: 3000
+      protocol: TCP
+      name: app-port
+  selector:
+    app: showks-form-temp
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  namespace: showks
+  labels:
+    app: mysql
+spec:
+  type: ClusterIP
+  ports:
+  - port: 3306
+    targetPort: 3306
+  selector:
+    app: mysql
+
+---
+# Source: showks-form/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: showks-form-temp
+  namespace: showks
+  labels:
+    app: showks-form-temp
+spec:
+  replicas: 
+  selector:
+    matchLabels:
+      app: showks-form-temp
+  template:
+    metadata:
+      labels:
+        app: showks-form-temp
+    spec:
+      containers:
+        - name: showks-form-temp
+          image: gcr.io/ipc-containerdays/showks-form:stg-67a2f40084812ddd98d457a11a92480ea10ce064
+          env:
+            - name: DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  name: showks-config
+                  key: domain
+            - name: AGGREGATOR_URL
+              value: https://aggregator$(DOMAIN)
+          ports:
+            - name: app-port
+              containerPort: 3000
+              protocol: TCP
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: showks-form-temp
+  labels:
+    app: showks-form-temp
+  namespace: showks
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: showks-form-temp
+  template:
+    metadata:
+      labels:
+        app: showks-form-temp
+    spec:
+      containers:
+      - name: showks-form-temp
+        image: gcr.io/ipc-containerdays/showks-form:stg-67a2f40084812ddd98d457a11a92480ea10ce064
+        env:
+          - name: RAILS_ENV
+            value: "production"
+          - name: DB_HOST
+            value: "mysql.showks.svc.cluster.local"
+          - name: DB_USERNAME
+            value: "root"
+          - name: DB_PASSWORD
+            value: "passw0rd"
+          - name: DB_DATABASE
+            value: "showks"
+          - name: RAILS_SERVE_STATIC_FILES
+            value: "true"
+          - name: RAILS_MASTER_KEY
+            valueFrom:
+              secretKeyRef:
+                name: masterkey
+                key: masterkey
+          - name: RAILS_LOG_TO_STDOUT
+            value: "true"
+        lifecycle:
+          postStart:
+            exec:
+              command:
+                - /usr/src/showks-form/post-start.sh
+        ports:
+        - containerPort: 3000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  namespace: showks
+  labels:
+    app: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:5.7
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: passw0rd
+        - name: MYSQL_DATABASE
+          value: showks
+        args: ["--ignore-db-dir=lost+found"]
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+        - name: mysqld-config
+          mountPath: /etc/mysql/mysql.conf.d/
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-pv-claim
+      - name: mysqld-config
+        configMap:
+          name: mysqld-config
+
+---
+# Source: showks-form/templates/ingress.yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: showks-form
+spec:
+  rules:
+  - host: form.stg.showks.containerdays.jp
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: showks-form-service
+          servicePort: 3000
+
