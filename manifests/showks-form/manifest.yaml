@@ -4,6 +4,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: mysqld-config
+  namespace: showks
 data:
   mysqld.cnf: |
     [mysqld]
@@ -26,6 +27,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mysql-pv-claim
+  namespace: showks
   labels:
     app: showks-form
 spec:
@@ -90,7 +92,7 @@ spec:
     spec:
       containers:
         - name: showks-form-temp
-          image: gcr.io/ipc-containerdays/showks-form:stg-67a2f40084812ddd98d457a11a92480ea10ce064
+          image: gcr.io/ipc-containerdays/showks-form:stg-b2bffae797e7b358ba3ad25e466dce1041a1f684
           env:
             - name: DOMAIN
               valueFrom:
@@ -123,7 +125,7 @@ spec:
     spec:
       containers:
       - name: showks-form-temp
-        image: gcr.io/ipc-containerdays/showks-form:stg-67a2f40084812ddd98d457a11a92480ea10ce064
+        image: gcr.io/ipc-containerdays/showks-form:stg-b2bffae797e7b358ba3ad25e466dce1041a1f684
         env:
           - name: RAILS_ENV
             value: "production"
