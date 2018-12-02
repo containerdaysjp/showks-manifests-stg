@@ -3,10 +3,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: showks-canvas-demoaccount-3-temp
+  name: showks-canvas-demoaccount-jyoshise-6-temp
   namespace: showks
   labels:
-    app: showks-canvas-demoaccount-3-temp
+    app: showks-canvas-demoaccount-jyoshise-6-temp
     class: showks-canvas
 spec:
   type: ClusterIP
@@ -16,32 +16,32 @@ spec:
       protocol: TCP
       name: app-port
   selector:
-    app: showks-canvas-demoaccount-3-temp
+    app: showks-canvas-demoaccount-jyoshise-6-temp
 
 ---
 # Source: showks-canvas/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: showks-canvas-demoaccount-3-temp
+  name: showks-canvas-demoaccount-jyoshise-6-temp
   namespace: showks
   labels:
-    app: showks-canvas-demoaccount-3-temp
+    app: showks-canvas-demoaccount-jyoshise-6-temp
     class: showks-canvas
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: showks-canvas-demoaccount-3-temp
+      app: showks-canvas-demoaccount-jyoshise-6-temp
   template:
     metadata:
       labels:
-        app: showks-canvas-demoaccount-3-temp
+        app: showks-canvas-demoaccount-jyoshise-6-temp
         class: showks-canvas
     spec:
       containers:
-        - name: showks-canvas-demoaccount-3-temp
-          image: gcr.io/ipc-containerdays/showks-canvas-demoaccount-3:stg-ee1424f6f81fb2a4164e230d9787ca2f91a94570
+        - name: showks-canvas-demoaccount-jyoshise-6-temp
+          image: gcr.io/ipc-containerdays/showks-canvas-demoaccount-jyoshise-6:stg-e69b42a4b5cf7d77c49e364ba1565b6ab1f244ec
           ports:
             - name: app-port
               containerPort: 8080
@@ -52,25 +52,25 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: showks-canvas-demoaccount-3-temp
+  name: showks-canvas-demoaccount-jyoshise-6-temp
   namespace: showks
   labels:
     class: showks-canvas
   annotations:
     kubernetes.io/ingress.class: "nginx"
-    nginx.org/ssl-services: "showks-canvas-demoaccount-3-temp"
+    nginx.org/ssl-services: "showks-canvas-demoaccount-jyoshise-6-temp"
     ingress.kubernetes.io/ssl-redirect: "true"
 spec:
   tls:
     - hosts:
-      - showks-canvas-demoaccount-3.stg.showks.containerdays.jp
+      - showks-canvas-demoaccount-jyoshise-6.stg.showks.containerdays.jp
       secretName: tls-certificate
   rules:
-  - host: showks-canvas-demoaccount-3.stg.showks.containerdays.jp
+  - host: showks-canvas-demoaccount-jyoshise-6.stg.showks.containerdays.jp
     http:
       paths:
       - path: /
         backend:
-          serviceName: showks-canvas-demoaccount-3-temp
+          serviceName: showks-canvas-demoaccount-jyoshise-6-temp
           servicePort: 8080
 
