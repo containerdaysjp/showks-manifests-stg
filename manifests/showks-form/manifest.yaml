@@ -92,7 +92,7 @@ spec:
     spec:
       containers:
         - name: showks-form-temp
-          image: gcr.io/ipc-containerdays/showks-form:stg-b2bffae797e7b358ba3ad25e466dce1041a1f684
+          image: gcr.io/ipc-containerdays/showks-form:stg-fd44240fb587c1f28639a3dd7381fabbf10c9d65
           env:
             - name: DOMAIN
               valueFrom:
@@ -125,7 +125,7 @@ spec:
     spec:
       containers:
       - name: showks-form-temp
-        image: gcr.io/ipc-containerdays/showks-form:stg-b2bffae797e7b358ba3ad25e466dce1041a1f684
+        image: gcr.io/ipc-containerdays/showks-form:stg-fd44240fb587c1f28639a3dd7381fabbf10c9d65
         env:
           - name: RAILS_ENV
             value: "production"
@@ -194,20 +194,4 @@ spec:
       - name: mysqld-config
         configMap:
           name: mysqld-config
-
----
-# Source: showks-form/templates/ingress.yaml
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: showks-form
-spec:
-  rules:
-  - host: form.stg.showks.containerdays.jp
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: showks-form-service
-          servicePort: 3000
 
