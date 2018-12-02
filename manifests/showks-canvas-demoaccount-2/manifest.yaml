@@ -41,7 +41,7 @@ spec:
     spec:
       containers:
         - name: showks-canvas-demoaccount-2-temp
-          image: gcr.io/ipc-containerdays/showks-canvas-demoaccount-2:stg-b46853ecb9e811719c705586982bb2c481f759ac
+          image: gcr.io/ipc-containerdays/showks-canvas-demoaccount-2:stg-77ee5b1ed596d665c99d95edbc7c3d06d2207aa5
           ports:
             - name: app-port
               containerPort: 8080
@@ -58,7 +58,13 @@ metadata:
     class: showks-canvas
   annotations:
     kubernetes.io/ingress.class: "nginx"
+    nginx.org/ssl-services: "showks-canvas-demoaccount-2-temp"
+    ingress.kubernetes.io/ssl-redirect: "true"
 spec:
+  tls:
+    - hosts:
+      - showks-canvas-demoaccount-2.stg.showks.containerdays.jp
+      secretName: tls-certificate
   rules:
   - host: showks-canvas-demoaccount-2.stg.showks.containerdays.jp
     http:
