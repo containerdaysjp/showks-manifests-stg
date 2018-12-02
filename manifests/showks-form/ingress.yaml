@@ -5,7 +5,7 @@ metadata:
   namespace: showks
   annotations:
     kubernetes.io/ingress.class: "nginx"
-    nginx.org/ssl-services: "showks-form-service"
+    nginx.org/ssl-services: "showks-form-temp"
     ingress.kubernetes.io/ssl-redirect: "true"
 spec:
   tls:
@@ -18,5 +18,5 @@ spec:
       paths:
       - path: /
         backend:
-          serviceName: showks-form-service
+          serviceName: showks-form-temp
           servicePort: 3000
