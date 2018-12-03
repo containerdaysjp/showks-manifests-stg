@@ -10,10 +10,10 @@ metadata:
 spec:
   tls:
     - hosts:
-      - form.stg.showks.containerdays.jp
-      secretName: tls-certificate
+      - form.showks.containerdays.jp
+      secretName: tls-certificate-public
   rules:
-  - host: form.stg.showks.containerdays.jp
+  - host: form.showks.containerdays.jp
     http:
       paths:
       - path: /
