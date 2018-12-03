@@ -92,7 +92,7 @@ spec:
     spec:
       containers:
         - name: showks-form-temp
-          image: gcr.io/ipc-containerdays/showks-form:stg-43f5249fc5b0cc7b27c981cd19fc4414b468d27a
+          image: gcr.io/ipc-containerdays/showks-form:stg-efa03da178eacb46df63613cacad30246426342f
           env:
             - name: DOMAIN
               valueFrom:
@@ -125,7 +125,7 @@ spec:
     spec:
       containers:
       - name: showks-form-temp
-        image: gcr.io/ipc-containerdays/showks-form:stg-43f5249fc5b0cc7b27c981cd19fc4414b468d27a
+        image: gcr.io/ipc-containerdays/showks-form:stg-efa03da178eacb46df63613cacad30246426342f
         env:
           - name: RAILS_ENV
             value: "production"
