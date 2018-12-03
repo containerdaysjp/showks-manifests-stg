@@ -1,0 +1,130 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: spin
+    cluster: spin-clouddriver
+  name: spin-monitor-clouddriver
+  namespace: spinnaker
+spec:
+  ports:
+  - port: 8008
+    name: monitor
+    protocol: TCP
+    targetPort: 8008
+  selector:
+    app: spin
+    cluster: spin-clouddriver
+  sessionAffinity: None
+  type: ClusterIP
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: spin
+    cluster: spin-gate
+  name: spin-monitor-gate
+  namespace: spinnaker
+spec:
+  ports:
+  - port: 8008
+    name: monitor
+    protocol: TCP
+    targetPort: 8008
+  selector:
+    app: spin
+    cluster: spin-gate
+  sessionAffinity: None
+  type: ClusterIP
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: spin
+    cluster: spin-echo
+  name: spin-monitor-echo
+  namespace: spinnaker
+spec:
+  ports:
+  - port: 8008
+    name: monitor
+    protocol: TCP
+    targetPort: 8008
+  selector:
+    app: spin
+    cluster: spin-echo
+  sessionAffinity: None
+  type: ClusterIP
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: spin
+    cluster: spin-front50
+  name: spin-monitor-front50
+  namespace: spinnaker
+spec:
+  ports:
+  - port: 8008
+    name: monitor
+    protocol: TCP
+    targetPort: 8008
+  selector:
+    app: spin
+    cluster: spin-front50
+  sessionAffinity: None
+  type: ClusterIP
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: spin
+    cluster: spin-orca
+  name: spin-monitor-orca
+  namespace: spinnaker
+spec:
+  ports:
+  - port: 8008
+    name: monitor
+    protocol: TCP
+    targetPort: 8008
+  selector:
+    app: spin
+    cluster: spin-orca
+  sessionAffinity: None
+  type: ClusterIP
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: spin
+    cluster: spin-rosco
+  name: spin-monitor-rosco
+  namespace: spinnaker
+spec:
+  ports:
+  - port: 8008
+    name: monitor
+    protocol: TCP
+    targetPort: 8008
+  selector:
+    app: spin
+    cluster: spin-rosco
+  sessionAffinity: None
+  type: ClusterIP
+

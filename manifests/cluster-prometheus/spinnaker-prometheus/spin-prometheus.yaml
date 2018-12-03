@@ -1,0 +1,29 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  labels:
+    app: prometheus
+    prometheus: spin-prometheus
+  name: spin-prometheus
+  namespace: monitoring
+spec:
+  alerting:
+    alertmanagers:
+    - name: alertmanager-main
+      namespace: monitoring
+      port: web
+  baseImage: quay.io/prometheus/prometheus
+  logLevel: info
+  paused: false
+  replicas: 2
+  retention: 2d
+  routePrefix: /
+  ruleSelector:
+    matchLabels:
+      prometheus: spin-prometheus
+      role: alert-rules
+  serviceAccountName: spin-prometheus
+  serviceMonitorSelector:
+    matchExpressions:
+    - key: serviceapp
+      operator: Exists
