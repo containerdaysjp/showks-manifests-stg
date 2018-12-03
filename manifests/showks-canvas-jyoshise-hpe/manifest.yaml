@@ -41,7 +41,7 @@ spec:
     spec:
       containers:
         - name: showks-canvas-jyoshise-hpe-temp
-          image: gcr.io/ipc-containerdays/showks-canvas-jyoshise-hpe:stg-5d6b82b5ad7d3d796f3c5e5d71210f6d1076bebf
+          image: gcr.io/ipc-containerdays/showks-canvas-jyoshise-hpe:stg-2f5f501118cbd3bacab69f205f148abdeae78ca6
           ports:
             - name: app-port
               containerPort: 8080
