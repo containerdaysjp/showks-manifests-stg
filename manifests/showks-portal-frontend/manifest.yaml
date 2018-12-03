@@ -38,7 +38,7 @@ spec:
     spec:
       containers:
         - name: showks-portal-frontend-temp
-          image: gcr.io/ipc-containerdays/showks-portal-frontend:stg-35bf8f5b7663cad9bd953c369d4fabbcc94e298b
+          image: gcr.io/ipc-containerdays/showks-portal-frontend:stg-788b0565a75269b33a47d7ef201af6367bde219c
           env:
             - name: DOMAIN
               valueFrom:
