@@ -41,7 +41,7 @@ spec:
     spec:
       containers:
         - name: showks-canvas-haruelico-temp
-          image: gcr.io/ipc-containerdays/showks-canvas-haruelico:stg-05f101cd3f15bab62177a0d0c1317cf0cb13948e
+          image: gcr.io/ipc-containerdays/showks-canvas-haruelico:stg-5db9bbfe9377f741f97e28f3c54d85cf1b8703b7
           ports:
             - name: app-port
               containerPort: 8080
