@@ -41,7 +41,7 @@ spec:
     spec:
       containers:
         - name: showks-canvas-zabio3-temp
-          image: gcr.io/ipc-containerdays/showks-canvas-zabio3:stg-3ce4606e94413d2b0437d37e3e2adcb518012f39
+          image: gcr.io/ipc-containerdays/showks-canvas-zabio3:stg-33b63d8dcc382ce49e51c77b1194ebb58a84b7c2
           ports:
             - name: app-port
               containerPort: 8080
