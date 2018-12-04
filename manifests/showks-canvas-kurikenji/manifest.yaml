@@ -41,7 +41,7 @@ spec:
     spec:
       containers:
         - name: showks-canvas-kurikenji-temp
-          image: gcr.io/ipc-containerdays/showks-canvas-kurikenji:stg-85f1a8393e65cecb3e0ed1eaf4fdda8323117432
+          image: gcr.io/ipc-containerdays/showks-canvas-kurikenji:stg-0022874a6325c68f7e470898e35dfd93b364900d
           ports:
             - name: app-port
               containerPort: 8080
