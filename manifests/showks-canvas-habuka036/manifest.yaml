@@ -41,7 +41,7 @@ spec:
     spec:
       containers:
         - name: showks-canvas-habuka036-temp
-          image: gcr.io/ipc-containerdays/showks-canvas-habuka036:stg-76674e57e84dba1b6a6430f0c97af9f5c10613e6
+          image: gcr.io/ipc-containerdays/showks-canvas-habuka036:stg-22591ba0e16099f8f299b1cfd1650a8e232734e2
           ports:
             - name: app-port
               containerPort: 8080
