@@ -41,7 +41,7 @@ spec:
     spec:
       containers:
         - name: showks-canvas-kojiha-temp
-          image: gcr.io/ipc-containerdays/showks-canvas-kojiha:stg-d381c72822d54c49dcd53bc97b2bce79814c910b
+          image: gcr.io/ipc-containerdays/showks-canvas-kojiha:stg-a2e85262bbe3dd8dfd25b377338b64cc2e79680b
           ports:
             - name: app-port
               containerPort: 8080
