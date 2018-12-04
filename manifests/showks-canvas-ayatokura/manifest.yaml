@@ -41,7 +41,7 @@ spec:
     spec:
       containers:
         - name: showks-canvas-ayatokura-temp
-          image: gcr.io/ipc-containerdays/showks-canvas-ayatokura:stg-a1034e53d3e1f46eed10618bd995cd1d18bbc2df
+          image: gcr.io/ipc-containerdays/showks-canvas-ayatokura:stg-3d77d1d131c2448dfb599be3a2f4b796d06d2d75
           ports:
             - name: app-port
               containerPort: 8080
