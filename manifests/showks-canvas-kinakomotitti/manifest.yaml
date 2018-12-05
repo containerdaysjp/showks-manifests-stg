@@ -3,10 +3,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: showks-canvas-hideo-temp
+  name: showks-canvas-kinakomotitti-temp
   namespace: showks
   labels:
-    app: showks-canvas-hideo-temp
+    app: showks-canvas-kinakomotitti-temp
     class: showks-canvas
 spec:
   type: ClusterIP
@@ -16,32 +16,32 @@ spec:
       protocol: TCP
       name: app-port
   selector:
-    app: showks-canvas-hideo-temp
+    app: showks-canvas-kinakomotitti-temp
 
 ---
 # Source: showks-canvas/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: showks-canvas-hideo-temp
+  name: showks-canvas-kinakomotitti-temp
   namespace: showks
   labels:
-    app: showks-canvas-hideo-temp
+    app: showks-canvas-kinakomotitti-temp
     class: showks-canvas
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: showks-canvas-hideo-temp
+      app: showks-canvas-kinakomotitti-temp
   template:
     metadata:
       labels:
-        app: showks-canvas-hideo-temp
+        app: showks-canvas-kinakomotitti-temp
         class: showks-canvas
     spec:
       containers:
-        - name: showks-canvas-hideo-temp
-          image: gcr.io/ipc-containerdays/showks-canvas-hideo:stg-14c772e8fef44c675b292bba0182b0a2da42fc11
+        - name: showks-canvas-kinakomotitti-temp
+          image: gcr.io/ipc-containerdays/showks-canvas-kinakomotitti:stg-1a3cf5d2bc15a8a468edf0fcb85cc60222dd5283
           ports:
             - name: app-port
               containerPort: 8080
@@ -52,25 +52,25 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: showks-canvas-hideo-temp
+  name: showks-canvas-kinakomotitti-temp
   namespace: showks
   labels:
     class: showks-canvas
   annotations:
     kubernetes.io/ingress.class: "nginx"
-    nginx.org/ssl-services: "showks-canvas-hideo-temp"
+    nginx.org/ssl-services: "showks-canvas-kinakomotitti-temp"
     ingress.kubernetes.io/ssl-redirect: "true"
 spec:
   tls:
     - hosts:
-      - showks-canvas-hideo.stg.showks.containerdays.jp
+      - showks-canvas-kinakomotitti.stg.showks.containerdays.jp
       secretName: tls-certificate
   rules:
-  - host: showks-canvas-hideo.stg.showks.containerdays.jp
+  - host: showks-canvas-kinakomotitti.stg.showks.containerdays.jp
     http:
       paths:
       - path: /
         backend:
-          serviceName: showks-canvas-hideo-temp
+          serviceName: showks-canvas-kinakomotitti-temp
           servicePort: 8080
 
