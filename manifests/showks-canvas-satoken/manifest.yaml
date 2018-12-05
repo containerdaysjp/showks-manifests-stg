@@ -1,0 +1,76 @@
+---
+# Source: showks-canvas/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: showks-canvas-satoken-temp
+  namespace: showks
+  labels:
+    app: showks-canvas-satoken-temp
+    class: showks-canvas
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+      name: app-port
+  selector:
+    app: showks-canvas-satoken-temp
+
+---
+# Source: showks-canvas/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: showks-canvas-satoken-temp
+  namespace: showks
+  labels:
+    app: showks-canvas-satoken-temp
+    class: showks-canvas
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: showks-canvas-satoken-temp
+  template:
+    metadata:
+      labels:
+        app: showks-canvas-satoken-temp
+        class: showks-canvas
+    spec:
+      containers:
+        - name: showks-canvas-satoken-temp
+          image: gcr.io/ipc-containerdays/showks-canvas-satoken:stg-b9aa2f5fb64c673dd87b46198cb63fb7401a1d91
+          ports:
+            - name: app-port
+              containerPort: 8080
+              protocol: TCP
+
+---
+# Source: showks-canvas/templates/ingress.yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: showks-canvas-satoken-temp
+  namespace: showks
+  labels:
+    class: showks-canvas
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.org/ssl-services: "showks-canvas-satoken-temp"
+    ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  tls:
+    - hosts:
+      - showks-canvas-satoken.stg.showks.containerdays.jp
+      secretName: tls-certificate
+  rules:
+  - host: showks-canvas-satoken.stg.showks.containerdays.jp
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: showks-canvas-satoken-temp
+          servicePort: 8080
+
