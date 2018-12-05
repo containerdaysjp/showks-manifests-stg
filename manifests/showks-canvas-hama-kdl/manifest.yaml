@@ -41,7 +41,7 @@ spec:
     spec:
       containers:
         - name: showks-canvas-hama-kdl-temp
-          image: gcr.io/ipc-containerdays/showks-canvas-hama-kdl:stg-3a9aafbc37700de0f444d030722df77d25138eca
+          image: gcr.io/ipc-containerdays/showks-canvas-hama-kdl:stg-b69055c213f8efa61f4bca4e4b7d1a83d829fe32
           ports:
             - name: app-port
               containerPort: 8080
