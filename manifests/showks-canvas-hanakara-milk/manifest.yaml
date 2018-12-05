@@ -41,7 +41,7 @@ spec:
     spec:
       containers:
         - name: showks-canvas-hanakara-milk-temp
-          image: gcr.io/ipc-containerdays/showks-canvas-hanakara-milk:stg-bfa7b724845c8e507e5c65ecaa5fd0ee9c9a28cf
+          image: gcr.io/ipc-containerdays/showks-canvas-hanakara-milk:stg-4fde372a7412232a1be5241f091185bac3ef4ac5
           ports:
             - name: app-port
               containerPort: 8080
