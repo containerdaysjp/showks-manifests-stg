@@ -1,0 +1,76 @@
+---
+# Source: showks-canvas/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: showks-canvas-ys-betis-temp
+  namespace: showks
+  labels:
+    app: showks-canvas-ys-betis-temp
+    class: showks-canvas
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+      name: app-port
+  selector:
+    app: showks-canvas-ys-betis-temp
+
+---
+# Source: showks-canvas/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: showks-canvas-ys-betis-temp
+  namespace: showks
+  labels:
+    app: showks-canvas-ys-betis-temp
+    class: showks-canvas
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: showks-canvas-ys-betis-temp
+  template:
+    metadata:
+      labels:
+        app: showks-canvas-ys-betis-temp
+        class: showks-canvas
+    spec:
+      containers:
+        - name: showks-canvas-ys-betis-temp
+          image: gcr.io/ipc-containerdays/showks-canvas-ys-betis:stg-cd2765870d703d3ea9abdcc3f3bcab8c711aedab
+          ports:
+            - name: app-port
+              containerPort: 8080
+              protocol: TCP
+
+---
+# Source: showks-canvas/templates/ingress.yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: showks-canvas-ys-betis-temp
+  namespace: showks
+  labels:
+    class: showks-canvas
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.org/ssl-services: "showks-canvas-ys-betis-temp"
+    ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  tls:
+    - hosts:
+      - showks-canvas-ys-betis.stg.showks.containerdays.jp
+      secretName: tls-certificate
+  rules:
+  - host: showks-canvas-ys-betis.stg.showks.containerdays.jp
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: showks-canvas-ys-betis-temp
+          servicePort: 8080
+
