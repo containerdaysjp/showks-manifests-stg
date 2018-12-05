@@ -41,7 +41,7 @@ spec:
     spec:
       containers:
         - name: showks-canvas-gochiba-temp
-          image: gcr.io/ipc-containerdays/showks-canvas-gochiba:stg-347addb31629f9e16f7cb0d6aefebbf1b058c870
+          image: gcr.io/ipc-containerdays/showks-canvas-gochiba:stg-035e71fb6698100819379ae6ded7bbfdaf9f5548
           ports:
             - name: app-port
               containerPort: 8080
