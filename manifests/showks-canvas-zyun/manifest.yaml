@@ -1,0 +1,76 @@
+---
+# Source: showks-canvas/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: showks-canvas-zyun-temp
+  namespace: showks
+  labels:
+    app: showks-canvas-zyun-temp
+    class: showks-canvas
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+      name: app-port
+  selector:
+    app: showks-canvas-zyun-temp
+
+---
+# Source: showks-canvas/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: showks-canvas-zyun-temp
+  namespace: showks
+  labels:
+    app: showks-canvas-zyun-temp
+    class: showks-canvas
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: showks-canvas-zyun-temp
+  template:
+    metadata:
+      labels:
+        app: showks-canvas-zyun-temp
+        class: showks-canvas
+    spec:
+      containers:
+        - name: showks-canvas-zyun-temp
+          image: gcr.io/ipc-containerdays/showks-canvas-zyun:stg-a2aa343afba7321ab2ce40e05a1d78615d229327
+          ports:
+            - name: app-port
+              containerPort: 8080
+              protocol: TCP
+
+---
+# Source: showks-canvas/templates/ingress.yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: showks-canvas-zyun-temp
+  namespace: showks
+  labels:
+    class: showks-canvas
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.org/ssl-services: "showks-canvas-zyun-temp"
+    ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  tls:
+    - hosts:
+      - showks-canvas-zyun.stg.showks.containerdays.jp
+      secretName: tls-certificate
+  rules:
+  - host: showks-canvas-zyun.stg.showks.containerdays.jp
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: showks-canvas-zyun-temp
+          servicePort: 8080
+
