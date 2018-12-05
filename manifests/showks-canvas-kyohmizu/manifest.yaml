@@ -41,7 +41,7 @@ spec:
     spec:
       containers:
         - name: showks-canvas-kyohmizu-temp
-          image: gcr.io/ipc-containerdays/showks-canvas-kyohmizu:stg-ce178fc1940090b7973b74a0ea43e4ab733d55f7
+          image: gcr.io/ipc-containerdays/showks-canvas-kyohmizu:stg-bf5a332f30b81b4ea986bce1522b04b305c8ef6c
           ports:
             - name: app-port
               containerPort: 8080
