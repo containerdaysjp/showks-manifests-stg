@@ -41,7 +41,7 @@ spec:
     spec:
       containers:
         - name: showks-canvas-hagaspa-temp
-          image: gcr.io/ipc-containerdays/showks-canvas-hagaspa:stg-c7e94ec4053957f8f08a8541db0df654f42c4e94
+          image: gcr.io/ipc-containerdays/showks-canvas-hagaspa:stg-b1219b94ce43c26270c87762b1f103812648ae56
           ports:
             - name: app-port
               containerPort: 8080
